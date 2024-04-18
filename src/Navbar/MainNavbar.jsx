@@ -1,12 +1,13 @@
-import  { useState } from "react";
+import { useState } from "react";
 import InputGroup from "react-bootstrap/InputGroup";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Navbar from "react-bootstrap/Navbar";
-import { FaAngleDown, FaFacebook } from "react-icons/fa";
+import { FaAngleDown, FaFacebook, FaTimes } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
+import logo from "../Images/image.png";
 import { useForm } from "react-hook-form";
 
 const MainNavbar = () => {
@@ -24,13 +25,11 @@ const MainNavbar = () => {
     setModalState("close");
   };
 
-  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  
 
   const onSubmitSignUp = (data) => {
     console.log(data);
@@ -120,175 +119,112 @@ const MainNavbar = () => {
         </Container>
       </Navbar>
 
-      <div>
-        <Modal show={modalState === "modal-one"}>
-          <Modal.Header closeButton onClick={handleClose}>
-            <Modal.Title id="contained-modal-title-vcenter">
-              Create Account
-            </Modal.Title>
-          </Modal.Header>
-
-          <Modal.Body>
-            
-            <form className="mt-10 w-3/5" onSubmit={handleSubmit(onSubmitSignUp)}>
-              <InputGroup className="mb-0">
-                <Form.Control
-                  {...register("firstName", { required: true })}
-                  placeholder="First Name"
-                  aria-label="Username"
-                  aria-describedby="basic-addon1"
-                  className="bg-light fs-4 rounded-0 border"
-                />
-
-                <Form.Control
-                  {...register("last-name", { required: true })}
-                  placeholder="Last Name"
-                  aria-label="Username"
-                  aria-describedby="basic-addon2"
-                  className="bg-light fs-4 rounded-0"
-                />
-              </InputGroup>
-              {errors.firstName && (
-                <span className="text-danger">Please fill up Name</span>
-              )}
-
-              <Form.Control
-                {...register("email", { required: true })}
-                placeholder="Email"
-                aria-label="Username"
-                aria-describedby="basic-addon3"
-                className="bg-light fs-4 rounded-0 "
-              />
-              {errors.email && (
-                <span className="text-danger">Please fill up Email field</span>
-              )}
-
-              <Form.Control
-                {...register("password", { required: true })}
-                placeholder="Password"
-                aria-label="Username"
-                aria-describedby="basic-addon3"
-                className="bg-light fs-4 rounded-0  "
-              />
-              {errors.password && (
-                <span className="text-danger">
-                  Please fill up Password field
-                </span>
-              )}
-
-              <Form.Control
-                {...register("confirmPassword", { required: true })}
-                placeholder="Confirm Password"
-                aria-label="Username"
-                aria-describedby="basic-addon3"
-                className="bg-light fs-4 rounded-0 "
-              />
-              {errors.confirmPassword && (
-                <span className="text-danger">
-                  Please fill up Confirm Password field
-                </span>
-              )}
-
-              <div className="d-flex justify-content-between my-4">
-                <input
-                  className="fs-4 p-2 px-4 rounded-pill bg-primary border-0 text-white"
-                  style={{ cursor: "pointer" }}
-                  type="submit"
-                  value="Create Account"
-                />
-
-                <Link
-                  onClick={handleShowModalTwo}
-                  className="my-auto fs-5 text-black fw-bold"
-                  style={{ cursor: "pointer" }}
-                >
-                  Or, Sign In
-                </Link>
-              </div>
-
-              <div
-                  className="w-100 border d-flex justify-content-center py-2 my-4"
-                  style={{ cursor: "pointer" }}
-                >
-                  <FaFacebook className="fs-2 text-primary me-2 my-auto"></FaFacebook>
-                  <p className="fs-4 my-auto">Sign up with Facebook</p>
-                </div>
-
-                <div
-                  className="w-100 border d-flex justify-content-center py-2 mt-3"
-                  style={{ cursor: "pointer" }}
-                >
-                  <FcGoogle className="fs-2  me-2 my-auto"></FcGoogle>
-                  <p className="fs-4 my-auto">Sign up with Google</p>
-                </div>
-            </form>
-            <p className="text-center mt-5">
-              By SignUp, you agree to our Terms & <br /> conditions, Privacy
-              Policy
+      <div className="position-relative w-50">
+        <Modal className="modal-xl" show={modalState === "modal-one"}>
+          <div className="position-absolute top-0 end-0 start-100 translate-middle">
+            <p className="text-white rounded-circle fs-3" onClick={handleClose}>
+              <FaTimes />
             </p>
-          </Modal.Body>
-        </Modal>
+          </div>
 
+          <div className="text-success rounded-top  bg-info-subtle p-1 text-center">
+            <p className="text-center mt-2">
+              Lets learn, share & inspire each other with our passion for
+              computer engineering. Sign up now 🤘🏼
+            </p>
+          </div>
 
-
-
-
-        {/* Login Modal */}
-
-        <Modal show={modalState === "modal-two"}>
-          <Modal.Header closeButton onClick={handleClose}>
-            <Modal.Title id="contained-modal-title-vcenter">
-              Create Account
-            </Modal.Title>
-          </Modal.Header>
-
-          <Modal.Body>
-            <div>
-              <form className="mt-10 " onSubmit={handleSubmit(onSubmitLogIn)}>
-                <div className="form-control border-0 w-full ">
+          <Modal.Body className="row">
+            <div className="col">
+              <Modal.Title
+                className="p-2 fs-2 fw-bold"
+                id="contained-modal-title-vcenter"
+              >
+                Create Account
+              </Modal.Title>
+              <form
+                className="mt-10 w-3/5 pt-5"
+                onSubmit={handleSubmit(onSubmitSignUp)}
+              >
+                <InputGroup className="mb-0">
                   <Form.Control
-                    {...register("email", { required: true })}
-                    placeholder="Email"
+                    {...register("firstName", { required: true })}
+                    placeholder="First Name"
                     aria-label="Username"
-                    aria-describedby="basic-addon3"
-                    className="bg-light fs-4 rounded-0 "
+                    aria-describedby="basic-addon1"
+                    className="bg-light fs-4 rounded-0 border"
                   />
-                  {errors.email && (
-                    <span className="text-danger">
-                      Please fill up Email field
-                    </span>
-                  )}
 
                   <Form.Control
-                    {...register("password", { required: true })}
-                    placeholder="Password"
-                    aria-label="Username"
-                    aria-describedby="basic-addon3"
-                    className="bg-light fs-4 rounded-0  "
+                    {...register("last-name", { required: true })}
+                    placeholder="Last Name"
+                    className="bg-light fs-4 rounded-0"
                   />
-                  {errors.password && (
-                    <span className="text-danger">
-                      Please fill up Password field
-                    </span>
-                  )}
+                </InputGroup>
+                {errors.firstName && (
+                  <span className="text-danger">Please fill up Name</span>
+                )}
+
+                <Form.Control
+                  {...register("email", { required: true })}
+                  placeholder="Email"
+                  className="bg-light fs-4 rounded-0 "
+                />
+                {errors.email && (
+                  <span className="text-danger">
+                    Please fill up Email field
+                  </span>
+                )}
+
+                <Form.Control
+                  {...register("password", { required: true })}
+                  placeholder="Password"
+                  type="password"
+                  className="bg-light fs-4 rounded-0  "
+                />
+                {errors.password && (
+                  <span className="text-danger">
+                    Please fill up Password field
+                  </span>
+                )}
+
+                <Form.Control
+                  {...register("confirmPassword", { required: true })}
+                  placeholder="Confirm Password"
+                  type="password"
+                  className="bg-light fs-4 rounded-0 "
+                />
+                {errors.confirmPassword && (
+                  <span className="text-danger">
+                    Please fill up Confirm Password field
+                  </span>
+                )}
+
+                <div className="d-none d-lg-block w-100 justify-content-between my-4">
+                  <input
+                    className="w-100 fs-4 p-2 px-4 rounded-pill bg-primary border-0 text-white"
+                    style={{ cursor: "pointer" }}
+                    type="submit"
+                    value="Create Account"
+                  />
                 </div>
 
-                <div className="d-flex justify-content-between my-4">
-                <input
-                  className="fs-4 p-2 px-4 rounded-pill bg-primary border-0 text-white"
-                  style={{ cursor: "pointer" }}
-                  type="submit"
-                  value="Sign In"
-                />
+                <div className="d-lg-none d-flex justify-content-between my-4">
+                  <input
+                    className="fs-4 p-2 px-4 rounded-pill bg-primary border-0 text-white"
+                    style={{ cursor: "pointer" }}
+                    type="submit"
+                    value="Create Account"
+                  />
 
-                <Link
-                  onClick={handleShowModalOne}
-                  className="my-auto fs-5 text-black fw-bold"
-                  style={{ cursor: "pointer" }}
-                >
-                  Or, Create Your Account
-                </Link>
-              </div>
+                  <Link
+                    onClick={handleShowModalTwo}
+                    className="my-auto fs-5 text-black fw-bold"
+                    style={{ cursor: "pointer" }}
+                  >
+                    Or, Sign in
+                  </Link>
+                </div>
 
                 <div
                   className="w-100 border d-flex justify-content-center py-2 my-4"
@@ -306,12 +242,146 @@ const MainNavbar = () => {
                   <p className="fs-4 my-auto">Sign up with Google</p>
                 </div>
               </form>
+            </div>
+            <div className="col d-none d-lg-block">
               <p
-                to="#"
-                className="text-center mt-5"
+                onClick={handleShowModalTwo}
+                className="text-end fs-5 text-black "
                 style={{ cursor: "pointer" }}
               >
-                Forget Password?
+                Already have an account?{" "}
+                <span className="text-primary  fw-bold">Sign In</span>
+              </p>
+              <div className="w-50">
+                <img src={logo} alt={"Logo"} />
+              </div>
+              <p className="text-center mt-2">
+                By SignUp, you agree to our Terms & conditions, Privacy Policy
+              </p>
+            </div>
+          </Modal.Body>
+        </Modal>
+
+        {/* Login Modal */}
+
+        <Modal className="modal-xl" show={modalState === "modal-two"}>
+          <div className="position-absolute top-0 end-0 start-100 translate-middle">
+            <p className="text-white rounded-circle fs-3" onClick={handleClose}>
+              <FaTimes />
+            </p>
+          </div>
+
+          <div className="text-success rounded-top  bg-info-subtle p-1 text-center">
+            <p className="text-center mt-2">
+              Lets learn, share & inspire each other with our passion for
+              computer engineering. Sign up now 🤘🏼
+            </p>
+          </div>
+
+          <Modal.Body className="row">
+            <div className="col">
+            <Modal.Title
+                className="p-2 fs-2 fw-bold"
+                id="contained-modal-title-vcenter"
+              >
+                Sign In
+              </Modal.Title>
+              <div>
+                <form className="mt-5 " onSubmit={handleSubmit(onSubmitLogIn)}>
+                  <div className="form-control border-0 w-full ">
+                    <Form.Control
+                      {...register("email", { required: true })}
+                      placeholder="Email"
+                      aria-label="Username"
+                      aria-describedby="basic-addon3"
+                      className="bg-light fs-4 rounded-0 "
+                    />
+                    {errors.email && (
+                      <span className="text-danger">
+                        Please fill up Email field
+                      </span>
+                    )}
+
+                    <Form.Control
+                      {...register("password", { required: true })}
+                      placeholder="Password"
+                      type="password"
+                      aria-label="Username"
+                      aria-describedby="basic-addon3"
+                      className="bg-light fs-4 rounded-0  "
+                    />
+                    {errors.password && (
+                      <span className="text-danger">
+                        Please fill up Password field
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="d-none d-lg-block w-100 justify-content-between my-4">
+                    <input
+                      className="w-100 fs-4 p-2 px-4 rounded-pill bg-primary border-0 text-white"
+                      style={{ cursor: "pointer" }}
+                      type="submit"
+                      value="Sign In"
+                    />
+                  </div>
+
+                  <div className="d-lg-none d-flex justify-content-between my-4">
+                    <input
+                      className="fs-4 p-2 px-4 rounded-pill bg-primary border-0 text-white"
+                      style={{ cursor: "pointer" }}
+                      type="submit"
+                      value="Sign In"
+                    />
+
+                    <Link
+                      onClick={handleShowModalOne}
+                      className="my-auto fs-5 text-black fw-bold"
+                      style={{ cursor: "pointer" }}
+                    >
+                      Or, Create Your Account
+                    </Link>
+                  </div>
+
+                  <div
+                    className="w-100 border d-flex justify-content-center py-2 my-4"
+                    style={{ cursor: "pointer" }}
+                  >
+                    <FaFacebook className="fs-2 text-primary me-2 my-auto"></FaFacebook>
+                    <p className="fs-4 my-auto">Sign up with Facebook</p>
+                  </div>
+
+                  <div
+                    className="w-100 border d-flex justify-content-center py-2 mt-3"
+                    style={{ cursor: "pointer" }}
+                  >
+                    <FcGoogle className="fs-2  me-2 my-auto"></FcGoogle>
+                    <p className="fs-4 my-auto">Sign up with Google</p>
+                  </div>
+                </form>
+                <p
+                  to="#"
+                  className="text-center mt-5"
+                  style={{ cursor: "pointer" }}
+                >
+                  Forget Password?
+                </p>
+              </div>
+            </div>
+            <div className="col d-none d-lg-block">
+              <p
+                onClick={handleShowModalOne}
+                className="text-end fs-5 text-black "
+                style={{ cursor: "pointer" }}
+              >
+                Don’t have an account yet? 
+                <span className="text-primary fw-bold"> Create new for free!</span>
+              </p>
+              <div className="w-50">
+                <img src={logo} alt={"Logo"} />
+              </div>
+              <p className="text-center mt-2">
+                By SignUp, you agree to our Terms & conditions, Privacy Policy
               </p>
             </div>
           </Modal.Body>
